@@ -1,0 +1,53 @@
+{
+    "name": "id61GoToTheAboutPage",
+    "start": 1763918660779,
+    "stop": 1763918670697,
+    "stage": "finished",
+    "description": null,
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "06b6ec8a-fb41-428c-90a2-b412fd80ce68",
+    "historyId": "c62a0b395445b564bc16ebf20d3b2bb0",
+    "fullName": "ru.iteco.fmhandroid.ui.tests.AppBarTest.id61GoToTheAboutPage",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.tests"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.tests.AppBarTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "id61GoToTheAboutPage"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.tests.AppBarTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(3886)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

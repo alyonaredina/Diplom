@@ -1,0 +1,53 @@
+{
+    "name": "id63GoToTheLoveIsAllPage",
+    "start": 1763920821304,
+    "stop": 1763920831529,
+    "stage": "finished",
+    "description": null,
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "8815c76a-ad01-4377-9781-a2a348e4b47b",
+    "historyId": "e91dfd9d9d16728c42f3e9d8fa7c73dd",
+    "fullName": "ru.iteco.fmhandroid.ui.tests.AppBarTest.id63GoToTheLoveIsAllPage",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.tests"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.tests.AppBarTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "id63GoToTheLoveIsAllPage"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.tests.AppBarTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(3951)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

@@ -1,0 +1,53 @@
+{
+    "name": "id7ValidUsernameAndSpecialCharacterFieldPassword",
+    "start": 1763572105879,
+    "stop": 1763572109845,
+    "stage": "finished",
+    "description": null,
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "c519874d-c8ca-4925-a3b9-1d4964ffb3e3",
+    "historyId": "1f48626ed68aaf539c653e20122c2c45",
+    "fullName": "ru.iteco.fmhandroid.ui.tests.AuthorizationTest.id7ValidUsernameAndSpecialCharacterFieldPassword",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.tests"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.tests.AuthorizationTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "id7ValidUsernameAndSpecialCharacterFieldPassword"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.tests.AuthorizationTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(691)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

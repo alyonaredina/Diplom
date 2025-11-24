@@ -1,0 +1,53 @@
+{
+    "name": "id5EmptyFieldUsernameAndEmptyFieldPassword",
+    "start": 1763497311378,
+    "stop": 1763497316903,
+    "stage": "finished",
+    "description": null,
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "1af7f8a3-9c65-433b-aa7b-b90fb3df1116",
+    "historyId": "6b0f406467851ed3045cde20e6c8e3ad",
+    "fullName": "ru.iteco.fmhandroid.ui.tests.AuthorizationTest.id5EmptyFieldUsernameAndEmptyFieldPassword",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.tests"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.tests.AuthorizationTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "id5EmptyFieldUsernameAndEmptyFieldPassword"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.tests.AuthorizationTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(541)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}
