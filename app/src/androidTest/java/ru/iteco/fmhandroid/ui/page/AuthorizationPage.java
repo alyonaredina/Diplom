@@ -13,42 +13,45 @@ import static ru.iteco.fmhandroid.ui.WaitId.waitUntilElement;
 
 import android.view.View;
 
+import io.qameta.allure.kotlin.Allure;
 import io.qameta.allure.kotlin.Step;
 import ru.iteco.fmhandroid.ui.data.Data;
 import ru.iteco.fmhandroid.ui.element.AuthorizationElement;
 
 
 public class AuthorizationPage extends Data {
-    @Step ("Отображение надписи Authorization")
-    public static void checkAuthorizationTitle() {
+    AuthorizationElement myObjectAuthorization = new AuthorizationElement();
+
+    public void checkAuthorizationTitle() {
+        Allure.step("Отображение надписи Authorization");
         waitUntilElement("Authorization");
         //waitUntilElement(R.id.login_text_input_layout);
-        AuthorizationElement.AuthorizationTitle.check(matches(isDisplayed()));
+        myObjectAuthorization.AuthorizationTitle.check(matches(isDisplayed()));
     }
 
-    @Step("Отображение ошибки входа")
-    public static void aPop_upError(String text, View decorView) {
+    public void aPop_upError(String text, View decorView) {
+        Allure.step("Отображение ошибки входа");
         onView(withText(text))
                 .inRoot(withDecorView(not(decorView)))
                 .check(matches(isDisplayed()));
     }
 
-    @Step("Заполнение поля ввода логина")
-    public static void fillingInTheLoginField(String input){
-        AuthorizationElement.LoginInputField.perform(click());
-        AuthorizationElement.LoginInputField.perform(replaceText(input)/*,closeSoftKeyboard()*/);
-        AuthorizationElement.LoginInputField.check(matches(isDisplayed()));
+    public void fillingInTheLoginField(String input){
+        Allure.step("Заполнение поля ввода логина");
+        myObjectAuthorization.LoginInputField.perform(click());
+        myObjectAuthorization.LoginInputField.perform(replaceText(input)/*,closeSoftKeyboard()*/);
+        myObjectAuthorization.LoginInputField.check(matches(isDisplayed()));
     }
 
-    @Step("Заполнение поля ввода пароля")
-    public static void fillingInThePasswordField(String input){
-        AuthorizationElement.PasswordInputField.perform(replaceText(input)/*,closeSoftKeyboard()*/);
-        AuthorizationElement.PasswordInputField.check(matches(isDisplayed()));
+    public void fillingInThePasswordField(String input){
+        Allure.step("Заполнение поля ввода пароля");
+        myObjectAuthorization.PasswordInputField.perform(replaceText(input)/*,closeSoftKeyboard()*/);
+        myObjectAuthorization.PasswordInputField.check(matches(isDisplayed()));
     }
 
-    @Step("Нажатие кнопки входа")
-    public static void clickButtonEnter(){
-        AuthorizationElement.ButtonEnter.check(matches(isDisplayed()));
-        AuthorizationElement.ButtonEnter.perform(click());
+    public void clickButtonEnter(){
+        Allure.step("Нажатие кнопки входа");
+        myObjectAuthorization.ButtonEnter.check(matches(isDisplayed()));
+        myObjectAuthorization.ButtonEnter.perform(click());
     }
 }

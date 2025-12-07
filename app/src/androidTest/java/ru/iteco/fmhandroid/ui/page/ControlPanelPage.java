@@ -22,243 +22,257 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import io.qameta.allure.kotlin.Allure;
 import io.qameta.allure.kotlin.Step;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.element.ControlPanelElement;
 public class ControlPanelPage {
+    ControlPanelElement myObjectControlPanel = new ControlPanelElement();
 
-    @Step("Проверка отображения надписи Control panel")
-    public static void checkDisplayingControlPanelLabel(){
-        ControlPanelElement.ControlPanelTitle.check(matches(isDisplayed()));
-        ControlPanelElement.ControlPanelTitle.check(matches(withText("Control panel")));
+
+    public void checkDisplayingControlPanelLabel(){
+        Allure.step("Проверка отображения надписи Control panel");
+        myObjectControlPanel.ControlPanelTitle.check(matches(isDisplayed()));
+        myObjectControlPanel.ControlPanelTitle.check(matches(withText("Control panel")));
     }
 
-    @Step("Проверка отображения описания новости")
-    public static void checkDisplayingTextOfNewsDescription(){
-        ControlPanelElement.TextOfNewsDescription.check(matches(isDisplayed()));
-        ControlPanelElement.TextOfNewsDescription.check(matches(withText("Новый день")));
+    public void checkDisplayingTextOfNewsDescription(){
+        Allure.step("Проверка отображения описания новости");
+        myObjectControlPanel.TextOfNewsDescription.check(matches(isDisplayed()));
+        myObjectControlPanel.TextOfNewsDescription.check(matches(withText("Новый день")));
     }
 
-    @Step("Проверка что описание новости не отображается")
-    public static void checkNoDisplayingTextOfNewsDescription(){
-        ControlPanelElement.TextOfNewsDescription.check(matches(not(isDisplayed())));
+    public void checkNoDisplayingTextOfNewsDescription(){
+        Allure.step("Проверка что описание новости не отображается");
+        myObjectControlPanel.TextOfNewsDescription.check(matches(not(isDisplayed())));
     }
 
-    @Step("Проверка отображения категории новости")
-    public static void checkDisplayingTextOfCategory(String text){
-        ControlPanelElement.TextOfCategory.check(matches(isDisplayed()));
-        ControlPanelElement.TextOfCategory.check(matches(withText(text)));
+    public void checkDisplayingTextOfCategory(String text){
+        Allure.step("Проверка отображения категории новости");
+        myObjectControlPanel.TextOfCategory.check(matches(isDisplayed()));
+        myObjectControlPanel.TextOfCategory.check(matches(withText(text)));
     }
 
-    @Step("Проверка отображения cooбщения что новостей нет")
-    public static void checkDisplayingNoNews(String text){
-        ControlPanelElement.NoNews.check(matches(isDisplayed()));
-        ControlPanelElement.NoNews.check(matches(withText(text)));
+    public void checkDisplayingNoNews(String text){
+       Allure.step("Проверка отображения cooбщения что новостей нет");
+        myObjectControlPanel.NoNews.check(matches(isDisplayed()));
+        myObjectControlPanel.NoNews.check(matches(withText(text)));
     }
 
-    @Step("Проверка отображения категории новости")
-    public static void checkDisplayingTextOfCategoryMersi(String text){
-        ControlPanelElement.TextOfCategoryMersi.check(matches(isDisplayed()));
-        ControlPanelElement.TextOfCategoryMersi.check(matches(withText(text)));
+    public void checkDisplayingTextOfCategoryMersi(String text){
+        Allure.step("Проверка отображения категории новости");
+        myObjectControlPanel.TextOfCategoryMersi.check(matches(isDisplayed()));
+        myObjectControlPanel.TextOfCategoryMersi.check(matches(withText(text)));
     }
 
-    @Step("Проверка текста заглавия")
-    public static void CheckTextOfTitles(String text){
-        ControlPanelElement.TextOfTitles.check(matches(isDisplayed()));
-        ControlPanelElement.TextOfTitles.check(matches(withText(text)));
+    public void CheckTextOfTitles(String text){
+        Allure.step("Проверка текста заглавия");
+        myObjectControlPanel.TextOfTitles.check(matches(isDisplayed()));
+        myObjectControlPanel.TextOfTitles.check(matches(withText(text)));
     }
 
-    @Step("Проверка статуса")
-    public static void CheckStatus(){
-        ControlPanelElement.Status.check(matches(isDisplayed()));
-        ControlPanelElement.Status.check(matches(withText("NOT ACTIVE")));
+    public void CheckStatus(){
+        Allure.step("Проверка статуса");
+        myObjectControlPanel.Status.check(matches(isDisplayed()));
+        myObjectControlPanel.Status.check(matches(withText("NOT ACTIVE")));
     }
 
 
-    @Step("Проверка отображения текста об удалении новости")
-    public static void checkDisplayingTextOfDeleteNews(){
-        ControlPanelElement.TextOfDeleteNews.check(matches(isDisplayed()));
+    public void checkDisplayingTextOfDeleteNews(){
+       Allure.step("Проверка отображения текста об удалении новости");
+        myObjectControlPanel.TextOfDeleteNews.check(matches(isDisplayed()));
     }
 
-    @Step("Выбор категории из списка")
-    public static void SelectCategory(String category) {
+    public void SelectCategory(String category) {
+        Allure.step("Выбор категории из списка");
         onView(withText(category)).inRoot(RootMatchers.isPlatformPopup())
             .perform(click());
     }
 
-    @Step("Задать дату новости")
-    public static void NewsData(String data) {
-        ControlPanelElement.NewsDateElement.perform(replaceText(data));
+    public void NewsData(String data) {
+        Allure.step("Задать дату новости");
+        myObjectControlPanel.NewsDateElement.perform(replaceText(data));
     }
-    @Step("Сгенерировать дату новости")
-    public static String futureDate(int input) {
+
+    public String futureDate(int input) {
+        Allure.step("Сгенерировать дату новости");
         String pattern = "dd.MM.yyyy";
         String date = LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern(pattern));
         return date;
     }
-    @Step("Проверить дату новости")
-    public static void CheckDateNews(String date) {
+
+    public void CheckDateNews(String date) {
+        Allure.step("Проверить дату новости");
         waitUntilElement(R.id.news_item_publication_date_text_view);
-        ControlPanelElement.DateNews.check(matches(withText(date)));
+        myObjectControlPanel.DateNews.check(matches(withText(date)));
     }
 
 
-    @Step("Задать время новости")
-    public static void NewsTime(String time) {
-        ControlPanelElement.NewsTimeElement.perform(replaceText(time));
+    public void NewsTime(String time) {
+        Allure.step("Задать время новости");
+        myObjectControlPanel.NewsTimeElement.perform(replaceText(time));
     }
-    @Step("Сгенерировать время новости")
-    public static String futureTimeMinute(int input) {
+
+    public String futureTimeMinute(int input) {
+        Allure.step("Сгенерировать время новости");
         String pattern = "HH:mm";
         String time = LocalTime.now().plusMinutes(input).format(DateTimeFormatter.ofPattern(pattern));
         return time;
     }
-    @Step("Проверить время новости")
-    public static void CheckTimeNews(String time) {
+
+    public void CheckTimeNews(String time) {
+        Allure.step("Проверить время новости");
         waitUntilElement(R.id.news_item_publish_time_text_input_edit_text);
-        ControlPanelElement.TimeNews.check(matches(withText(time)));
+        myObjectControlPanel.TimeNews.check(matches(withText(time)));
     }
 
-    @Step("Задать описание новости")
-    public static void NewsDiscription(String text) {
+    public void NewsDiscription(String text) {
+        Allure.step("Задать описание новости");
         waitUntilElement(R.id.news_item_description_text_input_edit_text);
-        ControlPanelElement.NewsDiscriptionElement.perform(replaceText(text));
+        myObjectControlPanel.NewsDiscriptionElement.perform(replaceText(text));
     }
-    @Step("Сгенерировать описание новости")
-    public static String addTime(int hours, int minutes) {
+
+    public String addTime(int hours, int minutes) {
+        Allure.step("Сгенерировать описание новости");
+
         return hours + ":" + minutes;
     }
     private static Matcher<View> allOf(Matcher<View> viewMatcher) {
+
         return viewMatcher;
     }
 
-
-    @Step("проверка созданной новости")
-    public static void TitleNews(String text) {
-        ControlPanelElement.TitleNewsElement.check(matches(withText(text)));
+    public void TitleNews(String text) {
+        Allure.step("проверка созданной новости");
+        myObjectControlPanel.TitleNewsElement.check(matches(withText(text)));
     }
 
-    public static void NewsCheck(String text) {
+    public void NewsCheck(String text) {
         waitUntilElement(R.id.news_item_title_text_view);
         TitleNews(text);
     }
 
-    @Step("Изменить текст заглавия")
-    public static void ChangeTextOfTitles(String text){
-        ControlPanelElement.TextOfTitles.perform(replaceText(text), closeSoftKeyboard());
+    public void ChangeTextOfTitles(String text){
+        Allure.step("Изменить текст заглавия");
+        myObjectControlPanel.TextOfTitles.perform(replaceText(text), closeSoftKeyboard());
     }
 
-    @Step("Кликнуть по кнопке Добавить новость")
-    public static void ClickAddNews(){
-        ControlPanelElement.AddNewsButton.check(matches(isDisplayed()));
-        ControlPanelElement.AddNewsButton.perform(click());
+    public void ClickAddNews(){
+        Allure.step("Кликнуть по кнопке Добавить новость");
+        myObjectControlPanel.AddNewsButton.check(matches(isDisplayed()));
+        myObjectControlPanel.AddNewsButton.perform(click());
     }
 
-    @Step("Кликнуть по полю Категория")
-    public static void ClickCategoryField(){
+    public void ClickCategoryField(){
+        Allure.step("Кликнуть по полю Категория");
         //ControlPanelElement.CategoryField.check(matches(isDisplayed()));
-        ControlPanelElement.CategoryField.perform(click());
+        myObjectControlPanel.CategoryField.perform(click());
     }
 
-    @Step("Кликнуть по кнопке Save")
-    public static void ClickSaveButton(){
-        ControlPanelElement.SaveButton.perform(scrollTo(), click());
+    public void ClickSaveButton(){
+        Allure.step("Кликнуть по кнопке Save");
+        myObjectControlPanel.SaveButton.perform(scrollTo(), click());
     }
 
-    @Step("Кликнуть по кнопке Сортировать")
-    public static void ClickSortButton(){
-        ControlPanelElement.SortButton.check(matches(isDisplayed()));
-        ControlPanelElement.SortButton.perform(click());
+    public void ClickSortButton(){
+        Allure.step("Кликнуть по кнопке Сортировать");
+        myObjectControlPanel.SortButton.check(matches(isDisplayed()));
+        myObjectControlPanel.SortButton.perform(click());
     }
 
-    @Step("Кликнуть по кнопке Развернуть новость")
-    public static void ClickUnfurlNewsButton(){
-        ControlPanelElement.UnfurlNewsButton.perform(actionOnItemAtPosition(0, click()));
+    public void ClickUnfurlNewsButton(){
+        Allure.step("Кликнуть по кнопке Развернуть новость");
+        myObjectControlPanel.UnfurlNewsButton.perform(actionOnItemAtPosition(0, click()));
     }
 
-    @Step("Кликнуть по кнопке Свернуть новость")
-    public static void ClickRollUpNewsButton(){
-        ControlPanelElement.RollUpNewsButton.perform(actionOnItemAtPosition(0, click()));
+    public void ClickRollUpNewsButton(){
+        Allure.step("Кликнуть по кнопке Свернуть новость");
+        myObjectControlPanel.RollUpNewsButton.perform(actionOnItemAtPosition(0, click()));
     }
 
-    @Step("Кликнуть по кнопке удалить новость")
-    public static void ClickDeleteNews(){
-        ControlPanelElement.DeleteNews.perform(click());
+    public void ClickDeleteNews(){
+        Allure.step("Кликнуть по кнопке удалить новость");
+        myObjectControlPanel.DeleteNews.perform(click());
     }
 
-    @Step("Кликнуть по кнопке cогласия удалить новость")
-    public static void ClickOkDeleteNews(){
-        ControlPanelElement.OkDeleteNews.perform(click());
+    public void ClickOkDeleteNews(){
+        Allure.step("Кликнуть по кнопке cогласия удалить новость");
+        myObjectControlPanel.OkDeleteNews.perform(click());
     }
 
-    @Step("Кликнуть по кнопке отмены удаления новости")
-    public static void ClickCancelButton(){
-        ControlPanelElement.CancelButton.perform(click());
+    public void ClickCancelButton(){
+        Allure.step("Кликнуть по кнопке отмены удаления новости");
+        myObjectControlPanel.CancelButton.perform(click());
     }
 
-    @Step("Кликнуть по кнопке редактирования новости")
-    public static void ClickEditingButton(){
+    public void ClickEditingButton(){
+        Allure.step("Кликнуть по кнопке редактирования новости");
         //ControlPanelElement.EditingButton.check(matches(isDisplayed()));
-        ControlPanelElement.EditingButton.perform(click());
+        myObjectControlPanel.EditingButton.perform(click());
     }
 
-    @Step("Кликнуть по бегунку статуса")
-    public static void ClickSliderOfStatus(){
-        ControlPanelElement.SliderOfStatus.perform(scrollTo(), click());
+    public void ClickSliderOfStatus(){
+        Allure.step("Кликнуть по бегунку статуса");
+        myObjectControlPanel.SliderOfStatus.perform(scrollTo(), click());
     }
 
-
-    @Step("Кликнуть по кнопке Filter")
-    public static void ClickFilterButton(){
-        ControlPanelElement.FilterButton.check(matches(isDisplayed()));
-        ControlPanelElement.FilterButton.perform(click());
-    }
-
-    @Step("Кликнуть по кнопке начать Filter")
-    public static void ClickFilterButtonStart(){
-        ControlPanelElement.FilterButtonStart.check(matches(isDisplayed()));
-        ControlPanelElement.FilterButtonStart.perform(click());
-    }
-
-    @Step("Кликнуть по кнопке Cancel Filter")
-    public static void ClickCancelFilterButton(){
-        ControlPanelElement.CancelFilterButton.check(matches(isDisplayed()));
-        ControlPanelElement.CancelFilterButton.perform(click());
-    }
-
-    @Step("убрать галочку у активного статуса")
-    public static void ClickCheckMarkStatusActiv(){
-        ControlPanelElement.CheckMarkStatusActiv.check(matches(isDisplayed()));
-        ControlPanelElement.CheckMarkStatusActiv.perform(click());
-    }
-
-    @Step("убрать галочку у не активного статуса")
-    public static void ClickCheckMarkStatusNotActiv(){
-        ControlPanelElement.CheckMarkStatusNotActiv.check(matches(isDisplayed()));
-        ControlPanelElement.CheckMarkStatusNotActiv.perform(click());
+    public void ClickFilterButton(){
+        Allure.step("Кликнуть по кнопке Filter");
+        myObjectControlPanel.FilterButton.check(matches(isDisplayed()));
+        myObjectControlPanel.FilterButton.perform(click());
     }
 
 
+    public void ClickFilterButtonStart(){
+       Allure.step("Кликнуть по кнопке начать Filter");
+        myObjectControlPanel.FilterButtonStart.check(matches(isDisplayed()));
+        myObjectControlPanel.FilterButtonStart.perform(click());
+    }
 
-    @Step("Cоздать новость")
-    public static void CreateNews(String text1, String text2){
+
+    public void ClickCancelFilterButton(){
+        Allure.step("Кликнуть по кнопке Cancel Filter");
+        myObjectControlPanel.CancelFilterButton.check(matches(isDisplayed()));
+        myObjectControlPanel.CancelFilterButton.perform(click());
+    }
+
+
+    public void ClickCheckMarkStatusActiv(){
+        Allure.step("убрать галочку у активного статуса");
+        myObjectControlPanel.CheckMarkStatusActiv.check(matches(isDisplayed()));
+        myObjectControlPanel.CheckMarkStatusActiv.perform(click());
+    }
+
+
+    public void ClickCheckMarkStatusNotActiv(){
+        Allure.step("убрать галочку у не активного статуса");
+        myObjectControlPanel.CheckMarkStatusNotActiv.check(matches(isDisplayed()));
+        myObjectControlPanel.CheckMarkStatusNotActiv.perform(click());
+    }
+
+
+
+
+    public void CreateNews(String text1, String text2){
+        Allure.step("Cоздать новость");
+        ControlPanelPage myObjectControlPanel = new ControlPanelPage();
         //Создать новость
-        ControlPanelPage.ClickAddNews();
+        myObjectControlPanel.ClickAddNews();
         //кликнуть по полю Category
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //Выбрать категорию из списка
-        ControlPanelPage.SelectCategory(text1);
+        myObjectControlPanel.SelectCategory(text1);
         //Выбрать дату
-        ControlPanelPage.NewsData(futureDate(1));
+        myObjectControlPanel.NewsData(futureDate(1));
         //Выбрать время
-        ControlPanelPage.NewsTime(futureTimeMinute(1));
+        myObjectControlPanel.NewsTime(futureTimeMinute(1));
         //Ввести описание новости
-        ControlPanelPage.NewsDiscription(text2);
+        myObjectControlPanel.NewsDiscription(text2);
         //Создать
-        ControlPanelPage.ClickSaveButton();
+        myObjectControlPanel.ClickSaveButton();
         //Сортировка
         waitUntilElement(R.id.news_item_title_text_view);
-        ControlPanelPage.ClickSortButton();
+        myObjectControlPanel.ClickSortButton();
     }
 
 

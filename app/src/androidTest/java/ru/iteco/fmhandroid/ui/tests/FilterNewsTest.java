@@ -4,7 +4,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static ru.iteco.fmhandroid.ui.WaitId.waitUntilElement;
-import static ru.iteco.fmhandroid.ui.page.FilterNewsPage.futureDateDays;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -18,6 +17,8 @@ import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Severity;
+import io.qameta.allure.kotlin.SeverityLevel;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Data;
@@ -32,6 +33,12 @@ import ru.iteco.fmhandroid.ui.page.NewsPage;
 @RunWith(AllureAndroidJUnit4.class)
 
 public class FilterNewsTest extends Data {
+    NewsPage myObjectNews = new NewsPage();
+    MainPage myObjectMaim = new MainPage();
+    FilterNewsPage myObjectFilterNews = new FilterNewsPage();
+    AuthorizationPage myObjectAuthorization = new AuthorizationPage();
+    AppBarPage myObjectAppBar = new AppBarPage();
+    ControlPanelPage myObjectControlPanel = new ControlPanelPage();
 
     @Rule
     public ActivityScenarioRule<AppActivity> activityScenarioRule =
@@ -43,177 +50,186 @@ public class FilterNewsTest extends Data {
         try {
             waitUntilElement(R.id.login_text_input_layout);
             ViewInteraction textView = onView(Matchers.allOf(withText("Authorization"),isDisplayed()));
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.clickAllNews();
-            NewsPage.clickGoToFilterButton();
-            FilterNewsPage.checkDisplayingFilterNewsLabel();
+            myObjectMaim.clickAllNews();
+            myObjectNews.clickGoToFilterButton();
+            myObjectFilterNews.checkDisplayingFilterNewsLabel();
         } catch (androidx.test.espresso.PerformException e) {
-            AppBarPage.clickManButton();
+            myObjectAppBar.clickManButton();
             waitUntilElement(android.R.id.title);
-            AppBarPage.clickExit();
+            myObjectAppBar.clickExit();
             waitUntilElement(R.id.login_text_input_layout);
-            AuthorizationPage.checkAuthorizationTitle();
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.checkAuthorizationTitle();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.clickAllNews();
-            NewsPage.clickGoToFilterButton();
-            FilterNewsPage.checkDisplayingFilterNewsLabel();
+            myObjectMaim.clickAllNews();
+            myObjectNews.clickGoToFilterButton();
+            myObjectFilterNews.checkDisplayingFilterNewsLabel();
         }
     }
 
     @Test
     @Description("FilterNews. Выбор категорий из списка с выбором дат")
+    @Severity(SeverityLevel.CRITICAL)
     public void id16selectingCategoriesFromADateSelectionList(){
         //развернуть список
-        FilterNewsPage.clickDropDownListButton();
+        myObjectFilterNews.clickDropDownListButton();
         //выбрать категорию из списка
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //выбрать начальную дату
-        FilterNewsPage.SelectNewsDataFilterStart(futureDateDays(0));
+        myObjectFilterNews.SelectNewsDataFilterStart(myObjectFilterNews.futureDateDays(0));
         //выбрать конечную дату
-        FilterNewsPage.SelectNewsDataFilterEnd(futureDateDays(7));
+        myObjectFilterNews.SelectNewsDataFilterEnd(myObjectFilterNews.futureDateDays(7));
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
         try {
-            FilterNewsPage.checkFilter();
+            myObjectFilterNews.checkFilter();
         } catch (androidx.test.espresso.PerformException e) {
-            FilterNewsPage.noNews();
+            myObjectFilterNews.noNews();
         }
     }
 
     @Test
     @Description("FilterNews. Выбор категорий из списка с выбором дат")
+    @Severity(SeverityLevel.CRITICAL)
     public void id16ERRORselectingCategoriesFromADateSelectionList(){
         //развернуть список
-        FilterNewsPage.clickDropDownListButton();
+        myObjectFilterNews.clickDropDownListButton();
         //выбрать категорию из списка
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //выбрать начальную дату
-        FilterNewsPage.SelectNewsDataFilterStart(futureDateDays(7));
+        myObjectFilterNews.SelectNewsDataFilterStart(myObjectFilterNews.futureDateDays(7));
         //выбрать конечную дату
-        FilterNewsPage.SelectNewsDataFilterEnd(futureDateDays(0));
+        myObjectFilterNews.SelectNewsDataFilterEnd(myObjectFilterNews.futureDateDays(0));
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
         try {
-            FilterNewsPage.checkFilter();
+            myObjectFilterNews.checkFilter();
         } catch (androidx.test.espresso.PerformException e) {
-            FilterNewsPage.noNews();
+            myObjectFilterNews.noNews();
         }
     }
 
     @Test
     @Description("FilterNews. Выбор категорий из списка с выбором дат")
+    @Severity(SeverityLevel.CRITICAL)
     public void id17selectingCategoriesFromADateSelectionList(){
         //развернуть список
-        FilterNewsPage.clickDropDownListButton();
+        myObjectFilterNews.clickDropDownListButton();
         //выбрать категорию из списка
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //выбрать начальную дату
-        FilterNewsPage.SelectNewsDataFilterStart(futureDateDays(7));
+        myObjectFilterNews.SelectNewsDataFilterStart(myObjectFilterNews.futureDateDays(7));
         //выбрать конечную дату
-        FilterNewsPage.SelectNewsDataFilterEnd(futureDateDays(14));
+        myObjectFilterNews.SelectNewsDataFilterEnd(myObjectFilterNews.futureDateDays(14));
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
         try {
-            FilterNewsPage.checkFilter();
+            myObjectFilterNews.checkFilter();
         } catch (androidx.test.espresso.PerformException e) {
-            FilterNewsPage.noNews();
+            myObjectFilterNews.noNews();
         }
     }
 
     @Test
     @Description("FilterNews. Выбор категорий из списка без дат")
+    @Severity(SeverityLevel.CRITICAL)
     public void id18selectingCategoriesFromSelectionList(){
         //развернуть список
-        FilterNewsPage.clickDropDownListButton();
+        myObjectFilterNews.clickDropDownListButton();
         //выбрать категорию из списка
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
         try {
-            FilterNewsPage.checkFilter();
+            myObjectFilterNews.checkFilter();
         } catch (androidx.test.espresso.PerformException e) {
-            FilterNewsPage.noNews();
+            myObjectFilterNews.noNews();
         }
     }
 
     @Test
     @Description("FilterNews. Ввод категории вручную")
+    @Severity(SeverityLevel.CRITICAL)
     public void id19EnteringACategoryManually(){
         //развернуть список
-        FilterNewsPage.clickDropDownListButton();
+        myObjectFilterNews.clickDropDownListButton();
         //ввод категории
-        FilterNewsPage.changeTextCategory(massaj);
+        myObjectFilterNews.changeTextCategory(massaj);
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
         try {
-            FilterNewsPage.checkFilter();
+            myObjectFilterNews.checkFilter();
         } catch (androidx.test.espresso.PerformException e) {
-            FilterNewsPage.noNews();
+            myObjectFilterNews.noNews();
         }
     }
 
     @Test
     @Description("FilterNews. Фильтрация без данных")
+    @Severity(SeverityLevel.CRITICAL)
     public void id23FilteringWithoutData(){
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
         try {
-            FilterNewsPage.checkFilter();
+            myObjectFilterNews.checkFilter();
         } catch (androidx.test.espresso.PerformException e) {
-            FilterNewsPage.noNews();
+            myObjectFilterNews.noNews();
         }
     }
 
     @Test
     @Description("FilterNews. Без выбора категорий из списка с выбором дат")
+    @Severity(SeverityLevel.CRITICAL)
     public void id24onlyDate(){
         //выбрать начальную дату
-        FilterNewsPage.SelectNewsDataFilterStart(futureDateDays(0));
+        myObjectFilterNews.SelectNewsDataFilterStart(myObjectFilterNews.futureDateDays(0));
         //выбрать конечную дату
-        FilterNewsPage.SelectNewsDataFilterEnd(futureDateDays(7));
+        myObjectFilterNews.SelectNewsDataFilterEnd(myObjectFilterNews.futureDateDays(7));
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
         try {
-            FilterNewsPage.checkFilter();
+            myObjectFilterNews.checkFilter();
         } catch (androidx.test.espresso.PerformException e) {
-            FilterNewsPage.noNews();
+            myObjectFilterNews.noNews();
         }
     }
 
     @Test
     @Description("FilterNews. Выбор категорий из списка и даты начала поиска")
+    @Severity(SeverityLevel.CRITICAL)
     public void id26selectingCategoriesFromADateSelectionList(){
         //развернуть список
-        FilterNewsPage.clickDropDownListButton();
+        myObjectFilterNews.clickDropDownListButton();
         //выбрать категорию из списка
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //выбрать начальную дату
-        FilterNewsPage.SelectNewsDataFilterStart(futureDateDays(0));
+        myObjectFilterNews.SelectNewsDataFilterStart(myObjectFilterNews.futureDateDays(0));
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
-        FilterNewsPage.checkDisplayingErrorWrongPeriod();
+        myObjectFilterNews.checkDisplayingErrorWrongPeriod();
     }
 
     @Test
     @Description("FilterNews. Завершение фильтрации")
+    @Severity(SeverityLevel.CRITICAL)
     public void id28EndFilter(){
         //кликнуть Filter
-        FilterNewsPage.clickFilterButton();
+        myObjectFilterNews.clickFilterButton();
         //проверка
-        MainPage.checkDisplayingTheNewsLabel();
+        myObjectMaim.checkDisplayingTheNewsLabel();
     }
 }

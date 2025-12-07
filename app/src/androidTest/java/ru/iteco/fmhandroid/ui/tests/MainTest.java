@@ -17,9 +17,12 @@ import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Severity;
+import io.qameta.allure.kotlin.SeverityLevel;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Data;
+import ru.iteco.fmhandroid.ui.element.MaimElement;
 import ru.iteco.fmhandroid.ui.page.AppBarPage;
 import ru.iteco.fmhandroid.ui.page.AuthorizationPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
@@ -37,41 +40,49 @@ public class MainTest extends Data {
 
     @Before
     public void authorizationTestBefore() {
+        MainPage myObjectMaim = new MainPage();
+        AuthorizationPage myObjectAuthorization = new AuthorizationPage();
+        AppBarPage myObjectAppBar = new AppBarPage();
         try {
             waitUntilElement(R.id.login_text_input_layout);
             ViewInteraction textView = onView(Matchers.allOf(withText("Authorization"),isDisplayed()));
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.checkDisplayingTheAllNewsLabel();
+            myObjectMaim.checkDisplayingTheAllNewsLabel();
         } catch (androidx.test.espresso.PerformException e) {
-            AppBarPage.clickManButton();
+            myObjectAppBar.clickManButton();
             waitUntilElement(android.R.id.title);
-            AppBarPage.clickExit();
+            myObjectAppBar.clickExit();
             waitUntilElement(R.id.login_text_input_layout);
-            AuthorizationPage.checkAuthorizationTitle();
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.checkAuthorizationTitle();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.checkDisplayingTheAllNewsLabel();
+            myObjectMaim.checkDisplayingTheAllNewsLabel();
         }
     }
 
     @Test
     @Description("Main.Развернуть и свернуть список новостей")
+    @Severity(SeverityLevel.CRITICAL)
     public void id10CollapseAndExpandTheLatestNews(){
+        MainPage myObjectMaim = new MainPage();
         waitUntilElement(R.id.all_news_text_view);
-        MainPage.clickArrowExpandNewsList();
-        MainPage.clickBreakNewsListArrow();
-        MainPage.checkDisplayingTheAllNewsLabel();
+        myObjectMaim.clickArrowExpandNewsList();
+        myObjectMaim.clickBreakNewsListArrow();
+        myObjectMaim.checkDisplayingTheAllNewsLabel();
     }
 
     @Test
     @Description("Main.Перейти на страницу News")
+    @Severity(SeverityLevel.CRITICAL)
     public void id11GoToTheNewsPage(){
-        MainPage.clickAllNews();
-        NewsPage.checkDisplayingSortNewsButton();
+        NewsPage myObjectNews = new NewsPage();
+        MainPage myObjectMaim = new MainPage();
+        myObjectMaim.clickAllNews();
+        myObjectNews.checkDisplayingSortNewsButton();
     }
 }

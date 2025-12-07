@@ -4,9 +4,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static ru.iteco.fmhandroid.ui.WaitId.waitUntilElement;
-import static ru.iteco.fmhandroid.ui.page.ControlPanelPage.futureDate;
-import static ru.iteco.fmhandroid.ui.page.ControlPanelPage.futureTimeMinute;
-import static ru.iteco.fmhandroid.ui.page.FilterNewsPage.futureDateDays;
 
 import android.view.View;
 
@@ -22,6 +19,8 @@ import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Severity;
+import io.qameta.allure.kotlin.SeverityLevel;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Data;
@@ -36,6 +35,13 @@ import ru.iteco.fmhandroid.ui.page.NewsPage;
 @RunWith(AllureAndroidJUnit4.class)
 
 public class ControlPanelTest extends Data {
+    NewsPage myObjectNews = new NewsPage();
+    MainPage myObjectMaim = new MainPage();
+    ControlPanelPage myObjectControlPanel = new ControlPanelPage();
+    AuthorizationPage myObjectAuthorization = new AuthorizationPage();
+    AppBarPage myObjectAppBar = new AppBarPage();
+    FilterNewsPage myObjectFilterNews = new FilterNewsPage();
+
     private View decorView;
 
     @Rule
@@ -48,28 +54,28 @@ public class ControlPanelTest extends Data {
         try {
             waitUntilElement(R.id.login_text_input_layout);
             ViewInteraction textView = onView(Matchers.allOf(withText("Authorization"),isDisplayed()));
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.clickAllNews();
-            NewsPage.clickEditNewsButton();
-            ControlPanelPage.checkDisplayingControlPanelLabel();
+            myObjectMaim.clickAllNews();
+            myObjectNews.clickEditNewsButton();
+            myObjectControlPanel.checkDisplayingControlPanelLabel();
 
 
         } catch (androidx.test.espresso.PerformException e) {
-            AppBarPage.clickManButton();
+            myObjectAppBar.clickManButton();
             waitUntilElement(android.R.id.title);
-            AppBarPage.clickExit();
+            myObjectAppBar.clickExit();
             waitUntilElement(R.id.login_text_input_layout);
-            AuthorizationPage.checkAuthorizationTitle();
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.checkAuthorizationTitle();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.clickAllNews();
-            NewsPage.clickEditNewsButton();
-            ControlPanelPage.checkDisplayingControlPanelLabel();
+            myObjectMaim.clickAllNews();
+            myObjectNews.clickEditNewsButton();
+            myObjectControlPanel.checkDisplayingControlPanelLabel();
         }
     }
 
@@ -77,262 +83,279 @@ public class ControlPanelTest extends Data {
 
     @Test
     @Description("ControlPanel.Развернуть новость")
+    @Severity(SeverityLevel.NORMAL)
     public void id29ExpandTheNews(){
-        ControlPanelPage.CreateNews(holiday, nameOfTheHoliday);
-        ControlPanelPage.ClickUnfurlNewsButton();
+        myObjectControlPanel.CreateNews(holiday, nameOfTheHoliday);
+        myObjectControlPanel.ClickUnfurlNewsButton();
         //проверка
-        ControlPanelPage.checkDisplayingTextOfNewsDescription();
+        myObjectControlPanel.checkDisplayingTextOfNewsDescription();
     }
 
     @Test
     @Description("ControlPanel.Свернуть новость")
+    @Severity(SeverityLevel.NORMAL)
     public void id29collapseTheNews(){
-        ControlPanelPage.CreateNews(holiday, nameOfTheHoliday);
-        ControlPanelPage.ClickUnfurlNewsButton();
-        ControlPanelPage.ClickRollUpNewsButton();
+        myObjectControlPanel.CreateNews(holiday, nameOfTheHoliday);
+        myObjectControlPanel.ClickUnfurlNewsButton();
+        myObjectControlPanel.ClickRollUpNewsButton();
         //проверка
-        ControlPanelPage.checkNoDisplayingTextOfNewsDescription();
+        myObjectControlPanel.checkNoDisplayingTextOfNewsDescription();
     }
 
     @Test
     @Description("ControlPanel.Создать новость")
+    @Severity(SeverityLevel.CRITICAL)
     public void id53createTheNews(){
-        ControlPanelPage.CreateNews(holiday, nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday, nameOfTheHoliday);
         //проверка
-        ControlPanelPage.checkDisplayingTextOfCategory(holiday);
+        myObjectControlPanel.checkDisplayingTextOfCategory(holiday);
 
     }
 
     @Test
     @Description("ControlPanel.Удалить новость")
+    @Severity(SeverityLevel.CRITICAL)
     public void id30deleteTheNews(){
-        ControlPanelPage.CreateNews(holiday, nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday, nameOfTheHoliday);
         //кликнуть на значек удаления
-        ControlPanelPage.ClickDeleteNews();
+        myObjectControlPanel.ClickDeleteNews();
         //проверка сообщения об удалении
-        ControlPanelPage.checkDisplayingTextOfDeleteNews();
+        myObjectControlPanel.checkDisplayingTextOfDeleteNews();
         //кликнуть ок
-        ControlPanelPage.ClickOkDeleteNews();
+        myObjectControlPanel.ClickOkDeleteNews();
 
 
     }
 
     @Test
     @Description("ControlPanel. Отмена удаления")
+    @Severity(SeverityLevel.CRITICAL)
     public void id31cancellationDelete(){
-        ControlPanelPage.CreateNews(holiday, nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday, nameOfTheHoliday);
         //кликнуть на значек удаления
         waitUntilElement(R.id.delete_news_item_image_view);
-        ControlPanelPage.ClickDeleteNews();
+        myObjectControlPanel.ClickDeleteNews();
         //кликнуть Cancel
-        ControlPanelPage.checkDisplayingTextOfDeleteNews();
-        ControlPanelPage.ClickCancelButton();
+        myObjectControlPanel.checkDisplayingTextOfDeleteNews();
+        myObjectControlPanel.ClickCancelButton();
         //Проверка
         waitUntilElement(R.id.news_item_material_card_view);
-        ControlPanelPage.checkDisplayingTextOfCategory(holiday);
+        myObjectControlPanel.checkDisplayingTextOfCategory(holiday);
     }
 
     @Test
     @Description("ControlPanel. Изменить категорию новости")
+    @Severity(SeverityLevel.CRITICAL)
     public void id32changeTheNewsCategory(){
-        ControlPanelPage.CreateNews(holiday, nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday, nameOfTheHoliday);
         //кликнуть на иконку редактирования
-        ControlPanelPage.ClickEditingButton();
+        myObjectControlPanel.ClickEditingButton();
         //кликнуть по полю Category
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //Выбрать категорию из списка
-        ControlPanelPage.SelectCategory(mersi);
+        myObjectControlPanel.SelectCategory(mersi);
         //Создать
-        ControlPanelPage.ClickSaveButton();
+        myObjectControlPanel.ClickSaveButton();
         //проверка
-        ControlPanelPage.checkDisplayingTextOfCategoryMersi(mersi);
+        myObjectControlPanel.checkDisplayingTextOfCategoryMersi(mersi);
 
     }
 
     @Test
     @Description("ControlPanel. Изменить заглавие новости")
+    @Severity(SeverityLevel.CRITICAL)
     public void id33changeTheNewsCategory(){
-        ControlPanelPage.CreateNews(holiday, nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday, nameOfTheHoliday);
         //кликнуть на иконку редактирования
-        ControlPanelPage.ClickEditingButton();
+        myObjectControlPanel.ClickEditingButton();
         //изменить текст
-        ControlPanelPage.ChangeTextOfTitles(mersi);
+        myObjectControlPanel.ChangeTextOfTitles(mersi);
         //Создать
-        ControlPanelPage.ClickSaveButton();
+        myObjectControlPanel.ClickSaveButton();
         //проверка
-        ControlPanelPage.checkDisplayingTextOfCategoryMersi(mersi);
+        myObjectControlPanel.checkDisplayingTextOfCategoryMersi(mersi);
     }
 
     @Test
     @Description("ControlPanel. Изменить дату публикации")
+    @Severity(SeverityLevel.CRITICAL)
     public void id34changeThePublicationDate(){
         //Cоздать новость
-        ControlPanelPage.CreateNews(holiday,nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday,nameOfTheHoliday);
         //кликнуть на иконку редактирования
-        ControlPanelPage.ClickEditingButton();
+        myObjectControlPanel.ClickEditingButton();
         //Выбрать дату
-        ControlPanelPage.NewsData(futureDate(1));
+        myObjectControlPanel.NewsData(myObjectControlPanel.futureDate(1));
         //Создать
-        ControlPanelPage.ClickSaveButton();
+        myObjectControlPanel.ClickSaveButton();
         //проверка
 
     }
 
     @Test
     @Description("ControlPanel. Изменить статус новости")
+    @Severity(SeverityLevel.CRITICAL)
     public void id39changeTheNewsStatus(){
-        ControlPanelPage.CreateNews(holiday,nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday,nameOfTheHoliday);
         //кликнуть на иконку редактирования
-        ControlPanelPage.ClickEditingButton();
+        myObjectControlPanel.ClickEditingButton();
         //переместить бегунок
-        ControlPanelPage.ClickSliderOfStatus();
+        myObjectControlPanel.ClickSliderOfStatus();
         //Создать
-        ControlPanelPage.ClickSaveButton();
+        myObjectControlPanel.ClickSaveButton();
         //проверка
-        ControlPanelPage.CheckStatus();
+        myObjectControlPanel.CheckStatus();
     }
 
     @Test
     @Description("ControlPanel. Фильтровать новости по категории")
+    @Severity(SeverityLevel.CRITICAL)
     public void id41filteringByCategory(){
-        ControlPanelPage.CreateNews(holiday,nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday,nameOfTheHoliday);
         //oткрыть фильтр
-        ControlPanelPage.ClickFilterButton();
+        myObjectControlPanel.ClickFilterButton();
         //открыть список категорий
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //выбрать категорию
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //кликнуть фильтровать
-        ControlPanelPage.ClickFilterButtonStart();
+        myObjectControlPanel.ClickFilterButtonStart();
         //проверка
-        ControlPanelPage.checkDisplayingTextOfCategory(holiday);
+        myObjectControlPanel.checkDisplayingTextOfCategory(holiday);
     }
 
     @Test
     @Description("ControlPanel. Фильтровать новости по категории и дате")
+    @Severity(SeverityLevel.CRITICAL)
     public void id42filteringByCategoryAndDate(){
-        ControlPanelPage.CreateNews(holiday,nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday,nameOfTheHoliday);
         //oткрыть фильтр
-        ControlPanelPage.ClickFilterButton();
+        myObjectControlPanel.ClickFilterButton();
         //открыть список категорий
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //выбрать категорию
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //выбрать дату начала поиска
-        FilterNewsPage.SelectNewsDataFilterEnd(futureDateDays(0));
+        myObjectFilterNews.SelectNewsDataFilterEnd(myObjectFilterNews.futureDateDays(0));
         //выбрать дату окончания поиска
-        FilterNewsPage.SelectNewsDataFilterStart(futureDateDays(7));
+        myObjectFilterNews.SelectNewsDataFilterStart(myObjectFilterNews.futureDateDays(7));
         //кликнуть фильтровать
-        ControlPanelPage.ClickFilterButtonStart();
+        myObjectControlPanel.ClickFilterButtonStart();
         //проверка
-        ControlPanelPage.checkDisplayingNoNews(thereNoNews);
+        myObjectControlPanel.checkDisplayingNoNews(thereNoNews);
 
     }
 
     @Test
     @Description("ControlPanel. Фильтровать новости по категории, дате и статусу")
+    @Severity(SeverityLevel.CRITICAL)
     public void id43filteringByCategoryAndDateAndStatus(){
-        ControlPanelPage.CreateNews(holiday,nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday,nameOfTheHoliday);
         //oткрыть фильтр
-        ControlPanelPage.ClickFilterButton();
+        myObjectControlPanel.ClickFilterButton();
         //открыть список категорий
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //выбрать категорию
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //выбрать дату начала поиска
-        FilterNewsPage.SelectNewsDataFilterEnd(futureDateDays(0));
+        myObjectFilterNews.SelectNewsDataFilterEnd(myObjectFilterNews.futureDateDays(0));
         //выбрать дату окончания поиска
-        FilterNewsPage.SelectNewsDataFilterStart(futureDateDays(7));
+        myObjectFilterNews.SelectNewsDataFilterStart(myObjectFilterNews.futureDateDays(7));
         //убрать галочку у активного статуса
-        ControlPanelPage.ClickCheckMarkStatusActiv();
+        myObjectControlPanel.ClickCheckMarkStatusActiv();
         //кликнуть фильтровать
-        ControlPanelPage.ClickFilterButtonStart();
+        myObjectControlPanel.ClickFilterButtonStart();
         //проверка
-        ControlPanelPage.checkDisplayingNoNews(thereNoNews);
+        myObjectControlPanel.checkDisplayingNoNews(thereNoNews);
     }
 
     @Test
     @Description("ControlPanel. Фильтровать новости по категории, дате и статусу")
+    @Severity(SeverityLevel.CRITICAL)
     public void id44filteringByCategoryAndDateAndStatus(){
-        ControlPanelPage.CreateNews(holiday,nameOfTheHoliday);
+        myObjectControlPanel.CreateNews(holiday,nameOfTheHoliday);
         //oткрыть фильтр
-        ControlPanelPage.ClickFilterButton();
+        myObjectControlPanel.ClickFilterButton();
         //открыть список категорий
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //выбрать категорию
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //выбрать дату начала поиска
-        FilterNewsPage.SelectNewsDataFilterEnd(futureDateDays(0));
+        myObjectFilterNews.SelectNewsDataFilterEnd(myObjectFilterNews.futureDateDays(0));
         //выбрать дату окончания поиска
-        FilterNewsPage.SelectNewsDataFilterStart(futureDateDays(7));
+        myObjectFilterNews.SelectNewsDataFilterStart(myObjectFilterNews.futureDateDays(7));
         //убрать галочку у не активного статуса
-        ControlPanelPage.ClickCheckMarkStatusNotActiv();
+        myObjectControlPanel.ClickCheckMarkStatusNotActiv();
         //кликнуть фильтровать
-        ControlPanelPage.ClickFilterButtonStart();
+        myObjectControlPanel.ClickFilterButtonStart();
         //проверка
-        ControlPanelPage.checkDisplayingNoNews(thereNoNews);
+        myObjectControlPanel.checkDisplayingNoNews(thereNoNews);
     }
 
     @Test
     @Description("ControlPanel. Выйти из фильтра")
+    @Severity(SeverityLevel.CRITICAL)
     public void id48exitTheFilter() {
         //oткрыть фильтр
-        ControlPanelPage.ClickFilterButton();
+        myObjectControlPanel.ClickFilterButton();
         //кликнуть cancel
-        ControlPanelPage.ClickCancelFilterButton();
+        myObjectControlPanel.ClickCancelFilterButton();
         //проверка
-        ControlPanelPage.checkDisplayingControlPanelLabel();
+        myObjectControlPanel.checkDisplayingControlPanelLabel();
     }
 
     @Test
     @Description("ControlPanel. Создать новость по категории из списка")
+    @Severity(SeverityLevel.CRITICAL)
     public void id49createNewsByCategoryFromTheList(){
         //Создать новость
-        ControlPanelPage.ClickAddNews();
+        myObjectControlPanel.ClickAddNews();
         //кликнуть по полю Category
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //Выбрать категорию из списка
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //Создать
-        ControlPanelPage.ClickSaveButton();
+        myObjectControlPanel.ClickSaveButton();
         //оповещение об ошибке
-        AuthorizationPage.aPop_upError(errorCreateNews, decorView);
+        myObjectAuthorization.aPop_upError(errorCreateNews, decorView);
     }
 
     @Test
     @Description("ControlPanel. Создать новость по категории из списка и дате")
+    @Severity(SeverityLevel.CRITICAL)
     public void id50createNewsByCategoryFromTheListAndDate(){
         //Создать новость
-        ControlPanelPage.ClickAddNews();
+        myObjectControlPanel.ClickAddNews();
         //кликнуть по полю Category
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //Выбрать категорию из списка
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //Выбрать дату
-        ControlPanelPage.NewsData(futureDate(1));
+        myObjectControlPanel.NewsData(myObjectControlPanel.futureDate(1));
         //Создать
-        ControlPanelPage.ClickSaveButton();
+        myObjectControlPanel.ClickSaveButton();
         //оповещение об ошибке
-        AuthorizationPage.aPop_upError(errorCreateNews, decorView);
+        myObjectAuthorization.aPop_upError(errorCreateNews, decorView);
     }
 
     @Test
     @Description("ControlPanel. Создать новость по категории из списка, дате и времени")
+    @Severity(SeverityLevel.CRITICAL)
     public void id51createNewsByCategoryFromTheListAndDateAndTime(){
         //Создать новость
-        ControlPanelPage.ClickAddNews();
+        myObjectControlPanel.ClickAddNews();
         //кликнуть по полю Category
-        ControlPanelPage.ClickCategoryField();
+        myObjectControlPanel.ClickCategoryField();
         //Выбрать категорию из списка
-        ControlPanelPage.SelectCategory(holiday);
+        myObjectControlPanel.SelectCategory(holiday);
         //Выбрать дату
-        ControlPanelPage.NewsData(futureDate(1));
+        myObjectControlPanel.NewsData(myObjectControlPanel.futureDate(1));
         //Выбрать время
-        ControlPanelPage.NewsTime(futureTimeMinute(1));
+        myObjectControlPanel.NewsTime(myObjectControlPanel.futureTimeMinute(1));
         //Создать
-        ControlPanelPage.ClickSaveButton();
+        myObjectControlPanel.ClickSaveButton();
         //оповещение об ошибке
-        AuthorizationPage.aPop_upError(errorCreateNews, decorView);
+        myObjectAuthorization.aPop_upError(errorCreateNews, decorView);
     }
 
 }

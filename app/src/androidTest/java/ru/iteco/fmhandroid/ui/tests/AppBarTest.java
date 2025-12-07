@@ -2,30 +2,15 @@ package ru.iteco.fmhandroid.ui.tests;
 
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static ru.iteco.fmhandroid.ui.WaitId.waitUntilElement;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
-
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,6 +18,8 @@ import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Severity;
+import io.qameta.allure.kotlin.SeverityLevel;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Data;
@@ -45,6 +32,11 @@ import ru.iteco.fmhandroid.ui.page.MainPage;
 @RunWith(AllureAndroidJUnit4.class)
 
 public class AppBarTest extends Data {
+    MainPage myObjectMaim = new MainPage();
+    AuthorizationPage myObjectAuthorization = new AuthorizationPage();
+    AppBarPage myObjectAppBar = new AppBarPage();
+    AboutPage myObjectAbout = new AboutPage();
+
     @Rule
     public ActivityScenarioRule<AppActivity> activityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
@@ -56,107 +48,114 @@ public class AppBarTest extends Data {
         try {
             waitUntilElement(R.id.login_text_input_layout);
             ViewInteraction textView = onView(Matchers.allOf(withText("Authorization"),isDisplayed()));
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.checkDisplayingTheAllNewsLabel();
+            myObjectMaim.checkDisplayingTheAllNewsLabel();
         } catch (androidx.test.espresso.PerformException e) {
-            AppBarPage.clickManButton();
+            myObjectAppBar.clickManButton();
             waitUntilElement(android.R.id.title);
-            AppBarPage.clickExit();
+            myObjectAppBar.clickExit();
             waitUntilElement(R.id.login_text_input_layout);
-            AuthorizationPage.checkAuthorizationTitle();
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.checkAuthorizationTitle();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.checkDisplayingTheAllNewsLabel();
+            myObjectMaim.checkDisplayingTheAllNewsLabel();
         }
     }
 
     @Test
     @Description("AppBar.Перейти на страницу Main")
+    @Severity(SeverityLevel.CRITICAL)
     public void id59GoToTheMainPage(){
         //кликнуть по ALL NEWS
-        MainPage.clickAllNews();
+        myObjectMaim.clickAllNews();
         //открыть меню
-        AppBarPage.clickMenuButton();
+        myObjectAppBar.clickMenuButton();
         //выбрать Main
-        AppBarPage.clickLineMain();
+        myObjectAppBar.clickLineMain();
         //проверка
-        MainPage.checkDisplayingTheAllNewsLabel();
+        myObjectMaim.checkDisplayingTheAllNewsLabel();
     }
 
     @Test
     @Description("AppBar.Перейти на страницу News")
+    @Severity(SeverityLevel.CRITICAL)
     public void id60GoToTheNewsPage(){
         //открыть меню
-        AppBarPage.clickMenuButton();
+        myObjectAppBar.clickMenuButton();
         //выбрать News
-        AppBarPage.clickLineNews();
+        myObjectAppBar.clickLineNews();
         //проверка
-        MainPage.checkDisplayingTheNewsLabel();
+        myObjectMaim.checkDisplayingTheNewsLabel();
     }
 
     @Test
     @Description("AppBar.Перейти на страницу About")
+    @Severity(SeverityLevel.CRITICAL)
     public void id61GoToTheAboutPage(){
         //открыть меню
-        AppBarPage.clickMenuButton();
+        myObjectAppBar.clickMenuButton();
         //выбрать About
-        AppBarPage.clickLineAbout();
+        myObjectAppBar.clickLineAbout();
         //проверка
-        AboutPage.checkDisplayingTheVersionLabel();
+        myObjectAbout.checkDisplayingTheVersionLabel();
     }
 
     @Test
     @Description("AppBar.Переход по страницам")
+    @Severity(SeverityLevel.CRITICAL)
     public void id72ERRORPageNavigation(){
         //открыть меню
-        AppBarPage.clickMenuButton();
+        myObjectAppBar.clickMenuButton();
         //выбрать News
-        AppBarPage.clickLineNews();
+        myObjectAppBar.clickLineNews();
         //проверка
-        MainPage.checkDisplayingTheNewsLabel();
+        myObjectMaim.checkDisplayingTheNewsLabel();
         //открыть меню
-        AppBarPage.clickMenuButton();
+        myObjectAppBar.clickMenuButton();
         //выбрать About
-        AppBarPage.clickLineAbout();
+        myObjectAppBar.clickLineAbout();
         //проверка
-        AboutPage.checkDisplayingTheVersionLabel();
+        myObjectAbout.checkDisplayingTheVersionLabel();
     }
 
     @Test
     @Description("AppBar.Перейти на страницу Love is all")
+    @Severity(SeverityLevel.CRITICAL)
     public void id62GoToTheLoveIsAllPage(){
         //кликнуть по значку бабочки
-        AppBarPage.clickButterflyBadge();
+        myObjectAppBar.clickButterflyBadge();
         //проверка
-        AppBarPage.checkDisplayingTheLoveIsAllLabel();
+        myObjectAppBar.checkDisplayingTheLoveIsAllLabel();
     }
 
     @Test
     @Description("AppBar. Развернуть и свернуть цитату на странице Love is all")
+    @Severity(SeverityLevel.NORMAL)
     public void id63GoToTheLoveIsAllPage(){
         //кликнуть по значку бабочки
-        AppBarPage.clickButterflyBadge();
+        myObjectAppBar.clickButterflyBadge();
         //развернуть цитату
-        AppBarPage.clickExpandTheQuoteButton();
+        myObjectAppBar.clickExpandTheQuoteButton();
         //свернуть цитату
-        AppBarPage.clickRollUpTheQuoteButton();
+        myObjectAppBar.clickRollUpTheQuoteButton();
         //проверка
-        AppBarPage.checkNoDisplayingTheQuote();
+        myObjectAppBar.checkNoDisplayingTheQuote();
     }
 
     @Test
     @Description("AppBar. Выйти из учетной записи")
+    @Severity(SeverityLevel.BLOCKER)
     public void id64Exit(){
         //кликнуть по значку человека
-        AppBarPage.clickManButton();
+        myObjectAppBar.clickManButton();
         //кликнуть по Log out
-        AppBarPage.clickExit();
+        myObjectAppBar.clickExit();
         //проверка
-        AuthorizationPage.checkAuthorizationTitle();
+        myObjectAuthorization.checkAuthorizationTitle();
     }
 }

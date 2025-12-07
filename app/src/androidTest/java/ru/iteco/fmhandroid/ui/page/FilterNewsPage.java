@@ -16,23 +16,27 @@ import org.hamcrest.Matcher;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import io.qameta.allure.kotlin.Allure;
 import io.qameta.allure.kotlin.Step;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.element.FilterNewsElement;
 
 public class FilterNewsPage {
+    FilterNewsElement myObjectFilterNews = new FilterNewsElement();
 
     //Дата новости
-    @Step("Выбор даты начала поиска")
-    public static void SelectNewsDataFilterStart(String data){
-        FilterNewsElement.NewsDataFilterStart.perform(replaceText(data));
+    public void SelectNewsDataFilterStart(String data){
+        Allure.step("Выбор даты начала поиска");
+        myObjectFilterNews.NewsDataFilterStart.perform(replaceText(data));
     }
-    @Step("Выбор даты окончания поиска")
-    public static void SelectNewsDataFilterEnd(String data){
-        FilterNewsElement.NewsDataFilterEnd.perform(replaceText(data));
+
+    public void SelectNewsDataFilterEnd(String data){
+        Allure.step("Выбор даты окончания поиска");
+        myObjectFilterNews.NewsDataFilterEnd.perform(replaceText(data));
     }
-    @Step("текущая дата")
-    public static String futureDateDays(int input) {
+
+    public String futureDateDays(int input) {
+        Allure.step("текущая дата");
         String pattern = "dd.MM.yyyy";
         String date = LocalDate.now().plusDays(input).format(DateTimeFormatter
                 .ofPattern(pattern));
@@ -40,46 +44,53 @@ public class FilterNewsPage {
     }
 
 
-    @Step("Проверка отображения надписи Filter news")
-    public static void checkDisplayingFilterNewsLabel(){
-        FilterNewsElement.FilterNewsTitle.check(matches(isDisplayed()));
-        FilterNewsElement.FilterNewsTitle.check(matches(withText("Filter news")));
+
+    public void checkDisplayingFilterNewsLabel(){
+        Allure.step("Проверка отображения надписи Filter news");
+        myObjectFilterNews.FilterNewsTitle.check(matches(isDisplayed()));
+        myObjectFilterNews.FilterNewsTitle.check(matches(withText("Filter news")));
     }
 
-    @Step("Отображение ошибки не заполненного поля даты")
-    public static void checkDisplayingErrorWrongPeriod(){
-        FilterNewsElement.ErrorWrongPeriod.check(matches(isDisplayed()));
-        FilterNewsElement.ErrorWrongPeriod.check(matches(withText("Wrong period")));
+
+    public void checkDisplayingErrorWrongPeriod(){
+        Allure.step("Отображение ошибки не заполненного поля даты");
+        myObjectFilterNews.ErrorWrongPeriod.check(matches(isDisplayed()));
+        myObjectFilterNews.ErrorWrongPeriod.check(matches(withText("Wrong period")));
     }
 
-    @Step("Кликнуть по кнопке выпадающего списка")
-    public static void clickDropDownListButton(){
-        FilterNewsElement.DropDownListButton.check(matches(isDisplayed()));
-        FilterNewsElement.DropDownListButton.perform(click());
+
+    public void clickDropDownListButton(){
+        Allure.step("Кликнуть по кнопке выпадающего списка");
+        myObjectFilterNews.DropDownListButton.check(matches(isDisplayed()));
+        myObjectFilterNews.DropDownListButton.perform(click());
     }
 
-    @Step("Кликнуть по нопке Filter")
-    public static void clickFilterButton(){
-        FilterNewsElement.FilterButton.check(matches(isDisplayed()));
-        FilterNewsElement.FilterButton.perform(click());
+
+    public void clickFilterButton(){
+        Allure.step("Кликнуть по нопке Filter");
+        myObjectFilterNews.FilterButton.check(matches(isDisplayed()));
+        myObjectFilterNews.FilterButton.perform(click());
     }
 
-    @Step("Проверка фильтрации.Есть новость")
-    public static void checkFilter() {
+
+    public void checkFilter() {
+        Allure.step("Проверка фильтрации.Есть новость");
         waitUntilElement(R.id.container_list_news_include);
         waitUntilElement(R.id.news_item_category_text_view);
-        FilterNewsElement.NewsForFilter.check(matches(isEnabled()));
-    }
-    @Step("Проверка фильтрации.Нет новостей")
-    public static void noNews() {
-        waitUntilElement(R.id.empty_news_list_text_view);
-        FilterNewsElement.NoNewsForFilter.check(matches(isDisplayed()));
+        myObjectFilterNews.NewsForFilter.check(matches(isEnabled()));
     }
 
-    @Step("Изменить текст в поле Категория")
-    public static void changeTextCategory(String category){
-        FilterNewsElement.CategoryField.check(matches(isDisplayed()));
-        FilterNewsElement.CategoryField.perform(replaceText(category), closeSoftKeyboard());
+    public void noNews() {
+        Allure.step("Проверка фильтрации.Нет новостей");
+        waitUntilElement(R.id.empty_news_list_text_view);
+        myObjectFilterNews.NoNewsForFilter.check(matches(isDisplayed()));
+    }
+
+
+    public void changeTextCategory(String category){
+        Allure.step("Изменить текст в поле Категория");
+        myObjectFilterNews.CategoryField.check(matches(isDisplayed()));
+        myObjectFilterNews.CategoryField.perform(replaceText(category), closeSoftKeyboard());
     }
 
 

@@ -7,40 +7,47 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static ru.iteco.fmhandroid.ui.WaitId.waitUntilElement;
 
+import io.qameta.allure.kotlin.Allure;
 import io.qameta.allure.kotlin.Step;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.element.MaimElement;
 
 public class MainPage {
+    MaimElement myObjectMaim = new MaimElement();
 
-    @Step("Нажатие на кнопку ALL NEWS")
-    public static void clickAllNews(){
-        MaimElement.ALLNEWSTitle.check(matches(isDisplayed()));
-        MaimElement.ALLNEWSTitle.perform(click());
+
+    public void clickAllNews(){
+        Allure.step("Нажатие на кнопку ALL NEWS");
+        myObjectMaim.ALLNEWSTitle.check(matches(isDisplayed()));
+        myObjectMaim.ALLNEWSTitle.perform(click());
     }
 
-    @Step("Нажатие на кнопку развернуть новости")
-    public static void clickArrowExpandNewsList(){
+
+    public void clickArrowExpandNewsList(){
+        Allure.step("Нажатие на кнопку развернуть новости");
         waitUntilElement(R.id.all_news_text_view);
-        MaimElement.ArrowExpandNewsList.check(matches(isDisplayed()));
-        MaimElement.ArrowExpandNewsList.perform(click());
+        myObjectMaim.ArrowExpandNewsList.check(matches(isDisplayed()));
+        myObjectMaim.ArrowExpandNewsList.perform(click());
     }
 
-    @Step("Нажатие на кнопку свернуть новости")
-    public static void clickBreakNewsListArrow(){
-        MaimElement.BreakNewsListArrow.check(matches(isDisplayed()));
-        MaimElement.BreakNewsListArrow.perform(click());
+
+    public void clickBreakNewsListArrow(){
+        Allure.step("Нажатие на кнопку свернуть новости");
+        myObjectMaim.BreakNewsListArrow.check(matches(isDisplayed()));
+        myObjectMaim.BreakNewsListArrow.perform(click());
     }
 
-    @Step("Проверка отображения надписи ALL NEWS")
-    public static void checkDisplayingTheAllNewsLabel(){
-        MaimElement.ALLNEWSTitle.check(matches(isDisplayed()));
-        MaimElement.ALLNEWSTitle.check(matches(withText("ALL NEWS")));
+
+    public void checkDisplayingTheAllNewsLabel(){
+        Allure.step("Проверка отображения надписи ALL NEWS");
+        myObjectMaim.ALLNEWSTitle.check(matches(isDisplayed()));
+        myObjectMaim.ALLNEWSTitle.check(matches(withText("ALL NEWS")));
     }
 
-    @Step("Проверка отображения надписи News")
-    public static void checkDisplayingTheNewsLabel(){
-        MaimElement.NewsTitle.check(matches(isDisplayed()));
-        MaimElement.NewsTitle.check(matches(withText("News")));
+
+    public void checkDisplayingTheNewsLabel(){
+        Allure.step("Проверка отображения надписи News");
+        myObjectMaim.NewsTitle.check(matches(isDisplayed()));
+        myObjectMaim.NewsTitle.check(matches(withText("News")));
     }
 }

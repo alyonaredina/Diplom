@@ -17,6 +17,8 @@ import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Severity;
+import io.qameta.allure.kotlin.SeverityLevel;
 import io.qameta.allure.kotlin.Step;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
@@ -32,6 +34,13 @@ import ru.iteco.fmhandroid.ui.page.NewsPage;
 @RunWith(AllureAndroidJUnit4.class)
 
 public class NewsTest extends Data {
+    NewsPage myObjectNews = new NewsPage();
+    MainPage myObjectMaim = new MainPage();
+    AuthorizationPage myObjectAuthorization = new AuthorizationPage();
+    AppBarPage myObjectAppBar = new AppBarPage();
+    FilterNewsPage myObjectFilterNews = new FilterNewsPage();
+    ControlPanelPage myObjectControlPanel = new ControlPanelPage();
+
     @Rule
     public ActivityScenarioRule<AppActivity> activityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
@@ -42,40 +51,42 @@ public class NewsTest extends Data {
         try {
             waitUntilElement(R.id.login_text_input_layout);
             ViewInteraction textView = onView(Matchers.allOf(withText("Authorization"),isDisplayed()));
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.clickAllNews();
-            NewsPage.checkDisplayingRefreshButton();
+            myObjectMaim.clickAllNews();
+            myObjectNews.checkDisplayingRefreshButton();
 
         } catch (androidx.test.espresso.PerformException e) {
-            AppBarPage.clickManButton();
+            myObjectAppBar.clickManButton();
             waitUntilElement(android.R.id.title);
-            AppBarPage.clickExit();
+            myObjectAppBar.clickExit();
             waitUntilElement(R.id.login_text_input_layout);
-            AuthorizationPage.checkAuthorizationTitle();
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.checkAuthorizationTitle();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.clickAllNews();
-            NewsPage.checkDisplayingRefreshButton();
+            myObjectMaim.clickAllNews();
+            myObjectNews.checkDisplayingRefreshButton();
         }
     }
 
     @Test
     @Description("News.Перейти в раздел фильтрации новостей")
+    @Severity(SeverityLevel.CRITICAL)
     public void id14GoToTheNewsFilteringSection(){
-        NewsPage.clickGoToFilterButton();
-        FilterNewsPage.checkDisplayingFilterNewsLabel();
+        myObjectNews.clickGoToFilterButton();
+        myObjectFilterNews.checkDisplayingFilterNewsLabel();
     }
 
     @Test
     @Step("News.Перейти в раздел редактирования новостей")
+    @Severity(SeverityLevel.CRITICAL)
     public void id15GoToTheNewsEditingSection(){
-        NewsPage.clickEditNewsButton();
-        ControlPanelPage.checkDisplayingControlPanelLabel();
+        myObjectNews.clickEditNewsButton();
+        myObjectControlPanel.checkDisplayingControlPanelLabel();
     }
 }
 

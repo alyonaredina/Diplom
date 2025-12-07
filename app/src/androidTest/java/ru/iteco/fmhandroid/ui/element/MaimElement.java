@@ -14,15 +14,15 @@ import ru.iteco.fmhandroid.R;
 public class MaimElement {
 
     //Надпись All News
-    public static ViewInteraction ALLNEWSTitle = onView(withId(R.id.all_news_text_view));
+    public ViewInteraction ALLNEWSTitle = onView(withId(R.id.all_news_text_view));
 
     //Надпись News
-    public static ViewInteraction NewsTitle = onView(Matchers.allOf(withText("News"),
+    public ViewInteraction NewsTitle = onView(Matchers.allOf(withText("News"),
             withParent(withParent(withId(R.id.container_list_news_include)))));
 
     //Cтрелка развернуть список новостей
-    public static ViewInteraction ArrowExpandNewsList = onView(withId(R.id.expand_material_button));
+    public ViewInteraction ArrowExpandNewsList = onView(withId(R.id.expand_material_button));
 
     //Cтрелка cвернуть список новостей
-    public static ViewInteraction BreakNewsListArrow = onView(withId(R.id.expand_material_button));
+    public ViewInteraction BreakNewsListArrow = onView(withId(R.id.expand_material_button));
 }

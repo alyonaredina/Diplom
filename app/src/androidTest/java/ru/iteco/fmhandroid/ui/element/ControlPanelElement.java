@@ -28,7 +28,7 @@ import ru.iteco.fmhandroid.R;
 public class ControlPanelElement {
 
     //Дата новости
-    public static ViewInteraction NewsDateElement = onView(allOf(withId(R.id.news_item_publish_date_text_input_edit_text)));
+    public ViewInteraction NewsDateElement = onView(allOf(withId(R.id.news_item_publish_date_text_input_edit_text)));
     /*public static void NewsDataFilterContPanel(String data){
         onView(allOf(withId(R.id.news_item_publish_date_end_text_input_edit_text))).perform(replaceText(data));
     }
@@ -38,91 +38,91 @@ public class ControlPanelElement {
         return date;
     }*/
     //Дата для проверки
-    public static ViewInteraction DateNews = onView(first(allOf(withId(R.id.news_item_publication_date_text_view))));
+    public ViewInteraction DateNews = onView(first(allOf(withId(R.id.news_item_publication_date_text_view))));
 
 
     //Время новости
-    public static ViewInteraction NewsTimeElement = onView(allOf(withId(R.id.news_item_publish_time_text_input_edit_text)));
+    public ViewInteraction NewsTimeElement = onView(allOf(withId(R.id.news_item_publish_time_text_input_edit_text)));
     //Время для проверки
-    public static ViewInteraction TimeNews = onView(first(allOf(withId(R.id.news_item_publish_time_text_input_edit_text))));
+    public ViewInteraction TimeNews = onView(first(allOf(withId(R.id.news_item_publish_time_text_input_edit_text))));
 
 
     //описание новости
-    public static ViewInteraction NewsDiscriptionElement = onView(allOf(withId(R.id.news_item_description_text_input_edit_text)));
+    public ViewInteraction NewsDiscriptionElement = onView(allOf(withId(R.id.news_item_description_text_input_edit_text)));
 
     //Для проверки созданной новости
-    public static ViewInteraction TitleNewsElement = onView(allOf(withId(R.id.news_item_title_text_view)));
+    public ViewInteraction TitleNewsElement = onView(allOf(withId(R.id.news_item_title_text_view)));
 
 
     //Надпись Control panel
-    public static ViewInteraction ControlPanelTitle = onView(Matchers.allOf(withText("Control panel"),
+    public ViewInteraction ControlPanelTitle = onView(Matchers.allOf(withText("Control panel"),
             withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class)))));
 
     //Текст описания новости
-    public static ViewInteraction TextOfNewsDescription = onView(
+    public ViewInteraction TextOfNewsDescription = onView(
             Matchers.allOf(withId(R.id.news_item_description_text_view), withText("Новый день"),
                     withParent(withParent(withId(R.id.news_item_material_card_view)))));
 
     //Текст категории
-    public static ViewInteraction TextOfCategory = onView(
+    public ViewInteraction TextOfCategory = onView(
             Matchers.allOf(withId(R.id.news_item_title_text_view), withText("Праздник"),
                     withParent(withParent(withId(R.id.news_item_material_card_view)))));
 
     //Текст категории
-    public static ViewInteraction TextOfCategoryMersi = onView(
+    public ViewInteraction TextOfCategoryMersi = onView(
             Matchers.allOf(withId(R.id.news_item_title_text_view), withText("Благодарность"),
                     withParent(withParent(withId(R.id.news_item_material_card_view)))));
 
     //Сообщение что нет новостей
-    public static ViewInteraction NoNews = onView(
+    public ViewInteraction NoNews = onView(
             Matchers.allOf(withId(R.id.control_panel_empty_news_list_text_view), withText("There is nothing here yet…"),
                     withParent(withParent(withId(R.id.news_control_panel_swipe_to_refresh)))));
 
     //Текст заглавия
-    public static ViewInteraction TextOfTitles = onView(allOf(withId(R.id.news_item_title_text_input_edit_text)));
+    public ViewInteraction TextOfTitles = onView(allOf(withId(R.id.news_item_title_text_input_edit_text)));
 
     //Текст cообщения об удалении новости
-    public static ViewInteraction TextOfDeleteNews = onView(allOf(withId(android.R.id.message),
+    public ViewInteraction TextOfDeleteNews = onView(allOf(withId(android.R.id.message),
             withText("Are you sure you want to permanently delete the document? These changes cannot be reversed in the future."),
             withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.ScrollView.class)))));
 
     //Поле Категория
-    public static ViewInteraction CategoryField = onView(allOf(withId(/*com.google.android.material.*/R.id.text_input_end_icon),
+    public ViewInteraction CategoryField = onView(allOf(withId(/*com.google.android.material.*/R.id.text_input_end_icon),
                     withContentDescription("Show dropdown menu")));
 
     //Кнопка Добавить новость
-    public static ViewInteraction AddNewsButton = onView(Matchers.allOf(withId(R.id.add_news_image_view)));
+    public ViewInteraction AddNewsButton = onView(Matchers.allOf(withId(R.id.add_news_image_view)));
 
     //Кнопка Save
-    public static ViewInteraction SaveButton = onView(Matchers.allOf(withId(R.id.save_button), withText("Save")));
+    public ViewInteraction SaveButton = onView(Matchers.allOf(withId(R.id.save_button), withText("Save")));
 
     //Кнопка сортировки
-    public static ViewInteraction SortButton = onView(Matchers.allOf(withId(R.id.sort_news_material_button)));
+    public ViewInteraction SortButton = onView(Matchers.allOf(withId(R.id.sort_news_material_button)));
 
     //Кнопка развернуть новость
-    public static ViewInteraction UnfurlNewsButton = onView(withId(R.id.news_list_recycler_view));
+    public ViewInteraction UnfurlNewsButton = onView(withId(R.id.news_list_recycler_view));
 
     //Кнопка свернуть новость
-    public static ViewInteraction RollUpNewsButton = onView(withId(R.id.news_list_recycler_view));
+    public ViewInteraction RollUpNewsButton = onView(withId(R.id.news_list_recycler_view));
 
     //Кнопка удалить новость
-    public static ViewInteraction DeleteNews = onView(first(allOf(withId(R.id.delete_news_item_image_view), withContentDescription("News delete button"),
+    public ViewInteraction DeleteNews = onView(first(allOf(withId(R.id.delete_news_item_image_view), withContentDescription("News delete button"),
             childAtPosition(childAtPosition(withId(R.id.news_item_material_card_view),
                     0),14))));
 
     //Кнопка cогласие удалить новость
-    public static ViewInteraction OkDeleteNews = onView(allOf(withId(android.R.id.button1), withText("OK"),
+    public ViewInteraction OkDeleteNews = onView(allOf(withId(android.R.id.button1), withText("OK"),
             childAtPosition(childAtPosition(withClassName(is("android.widget.ScrollView")),
                     0),3)));
 
     //Кнопка отмена удаления
-    public static ViewInteraction CancelButton = onView(
+    public ViewInteraction CancelButton = onView(
             Matchers.allOf(withId(android.R.id.button2), withText("Cancel"),
                     childAtPosition(childAtPosition(withClassName(is("android.widget.ScrollView")),
                             0),2)));
 
     //Кнопка редактирования
-    public static ViewInteraction EditingButton = onView(first(allOf(
+    public ViewInteraction EditingButton = onView(first(allOf(
             withId(R.id.edit_news_item_image_view),
             withContentDescription("News editing button"))));
             /*onView(
@@ -134,30 +134,30 @@ public class ControlPanelElement {
                             15)));*/
 
     //Кнопка раздела Filter
-    public static ViewInteraction FilterButton = onView(Matchers.allOf(withId(R.id.filter_news_material_button)));
+    public ViewInteraction FilterButton = onView(Matchers.allOf(withId(R.id.filter_news_material_button)));
 
     //Кнопка Filter
-    public static ViewInteraction FilterButtonStart = onView(Matchers.allOf(withId(R.id.filter_button), withText("Filter")));
+    public ViewInteraction FilterButtonStart = onView(Matchers.allOf(withId(R.id.filter_button), withText("Filter")));
 
     //Кнопка Cancel Filter
-    public static ViewInteraction CancelFilterButton = onView(Matchers.allOf(withId(R.id.cancel_button),
+    public ViewInteraction CancelFilterButton = onView(Matchers.allOf(withId(R.id.cancel_button),
             withText("Cancel")));
 
     //Бегунок статуса ACTIVE
-    public static ViewInteraction SliderOfStatus = onView(Matchers.allOf(withId(R.id.switcher), withText("Active")));
+    public ViewInteraction SliderOfStatus = onView(Matchers.allOf(withId(R.id.switcher), withText("Active")));
 
 
     //Статус
-    public static ViewInteraction Status = onView(
+    public ViewInteraction Status = onView(
             Matchers.allOf(withId(R.id.news_item_published_text_view), withText("NOT ACTIVE"),
                     withParent(withParent(withId(R.id.news_item_material_card_view)))));
 
     //Галочка статуса Activ
-    public static ViewInteraction CheckMarkStatusActiv = onView(Matchers.allOf(withId(R.id.filter_news_active_material_check_box),
+    public ViewInteraction CheckMarkStatusActiv = onView(Matchers.allOf(withId(R.id.filter_news_active_material_check_box),
             withText("Active")));
 
     //Галочка статуса NotActiv
-    public static ViewInteraction CheckMarkStatusNotActiv = onView(Matchers.allOf(withId(R.id.filter_news_inactive_material_check_box),
+    public ViewInteraction CheckMarkStatusNotActiv = onView(Matchers.allOf(withId(R.id.filter_news_inactive_material_check_box),
             withText("Not active")));
 
 

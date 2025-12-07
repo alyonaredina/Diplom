@@ -20,7 +20,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
-import io.qameta.allure.kotlin.Step;
+import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Severity;
+import io.qameta.allure.kotlin.SeverityLevel;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Data;
@@ -33,6 +35,11 @@ import ru.iteco.fmhandroid.ui.page.MainPage;
 @RunWith(AllureAndroidJUnit4.class)
 
 public class AboutTest extends Data {
+    MainPage myObjectMaim = new MainPage();
+    AuthorizationPage myObjectAuthorization = new AuthorizationPage();
+    AboutPage myObjectAbout = new AboutPage();
+    AppBarPage myObjectAppBar = new AppBarPage();
+
     @Rule
     public ActivityScenarioRule<AppActivity> activityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
@@ -43,66 +50,69 @@ public class AboutTest extends Data {
         try {
             waitUntilElement(R.id.login_text_input_layout);
             ViewInteraction textView = onView(Matchers.allOf(withText("Authorization"),isDisplayed()));
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
-            MainPage.checkDisplayingTheAllNewsLabel();
+            myObjectMaim.checkDisplayingTheAllNewsLabel();
             //открыть меню
-            AppBarPage.clickMenuButton();
+            myObjectAppBar.clickMenuButton();
             //выбрать About
-            AppBarPage.clickLineAbout();
+            myObjectAppBar.clickLineAbout();
             //проверка
-            AboutPage.checkDisplayingTheVersionLabel();
+            myObjectAbout.checkDisplayingTheVersionLabel();
         } catch (androidx.test.espresso.PerformException e) {
-            AppBarPage.clickManButton();
+            myObjectAppBar.clickManButton();
             waitUntilElement(android.R.id.title);
-            AppBarPage.clickExit();
+            myObjectAppBar.clickExit();
             waitUntilElement(R.id.login_text_input_layout);
-            AuthorizationPage.checkAuthorizationTitle();
-            AuthorizationPage.fillingInTheLoginField(validLogin);
-            AuthorizationPage.fillingInThePasswordField(validPassword);
-            AuthorizationPage.clickButtonEnter();
+            myObjectAuthorization.checkAuthorizationTitle();
+            myObjectAuthorization.fillingInTheLoginField(validLogin);
+            myObjectAuthorization.fillingInThePasswordField(validPassword);
+            myObjectAuthorization.clickButtonEnter();
             waitUntilElement(R.id.all_news_text_view); //ждем загрузгу страницы ALL NEWS
             //открыть меню
-            AppBarPage.clickMenuButton();
+            myObjectAppBar.clickMenuButton();
             //выбрать About
-            AppBarPage.clickLineAbout();
+            myObjectAppBar.clickLineAbout();
             //проверка
-            AboutPage.checkDisplayingTheVersionLabel();
+            myObjectAbout.checkDisplayingTheVersionLabel();
         }
     }
 
     @Test
-    @Step("About. Переход по ссылке Privacy Policy")
+    @Description("About. Переход по ссылке Privacy Policy")
+    @Severity(value = SeverityLevel.MINOR)
     public void id65followingTheLinkPrivacyPolicy(){
         //включаем прослушку
         Intents.init();
         //проверяем переход по ссылке
-        AboutPage.clickLinkPrivacyPolicy();
+        myObjectAbout.clickLinkPrivacyPolicy();
         intended(hasData("https://vhospice.org/#/privacy-policy/"));
         //очищаем прослушку
         Intents.release();
     }
 
     @Test
-    @Step("About. Переход по ссылке Terms Of Use")
+    @Description("About. Переход по ссылке Terms Of Use")
+    @Severity(value = SeverityLevel.MINOR)
     public void id65followingTheLinkTermsOfUse(){
         //включаем прослушку
         Intents.init();
         //проверяем переход по ссылке
-        AboutPage.clickLinkTermsOfUse();
+        myObjectAbout.clickLinkTermsOfUse();
         intended(hasData("https://vhospice.org/#/terms-of-use"));
         //очищаем прослушку
         Intents.release();
     }
 
     @Test
-    @Step("About. Возврат на главную страницу")
+    @Description("About. Возврат на главную страницу")
+    @Severity(SeverityLevel.CRITICAL)
     public void id66ReturnToTheMainPage(){
         //кликнуть по стрелочке на App bar
-        AboutPage.clickGoToMainPageButton();
+        myObjectAbout.clickGoToMainPageButton();
         //проверка
-        MainPage.checkDisplayingTheAllNewsLabel();
+        myObjectMaim.checkDisplayingTheAllNewsLabel();
     }
 }
